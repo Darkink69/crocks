@@ -1,12 +1,12 @@
 // import React from 'react';
 
-const Header = () => {
+const Header = ({ava}: any) => {
   return (
     <header className="flex justify-between">
       <div className="relative pr-4">
         <div className="rounded-full w-[50px] h-[50px] flex items-center justify-center overflow-hidden">
           <img
-            src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/ava.png"
+            src={ava ? ava : "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/ava.png"}
             alt="Avatar"
             className="w-full h-full object-cover"
           />

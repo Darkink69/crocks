@@ -1,7 +1,7 @@
 // import { Section, Cell, Image } from "@telegram-apps/telegram-ui";
-import { Cell } from "@telegram-apps/telegram-ui";
+// import { Cell } from "@telegram-apps/telegram-ui";
 
-import { Link } from "@/components/Link/Link.tsx";
+// import { Link } from "@/components/Link/Link.tsx";
 import { Page } from "@/components/Page.tsx";
 
 // import tonSvg from "./ton.svg";
@@ -20,6 +20,10 @@ import {
   // type User,
   useSignal,
 } from "@telegram-apps/sdk-react";
+// import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
+import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
+// import { useTelegramLocation } from "@/components/Sensors/useTelegramLocation";
+import { LocationComponent } from "@/components/Sensors/useTelegramLocation";
 // import { List, Placeholder } from "@telegram-apps/telegram-ui";
 
 // import {
@@ -34,25 +38,25 @@ import {
 export const IndexPage: FC = () => {
   const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
-  console.log(initDataRaw, "!!!!!!!!!");
+  console.log(initDataRaw);
 
   return (
     <Page back={false}>
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
         <div className="relative bg-[#1A1A1A] w-full sm:max-w-[360px] h-[100vh] md:h-[830px]">
           <div className="p-4">
-            <Header />
-            <div className="pt-4 text-amber-300">
+            <Header ava={initDataState?.user?.photo_url}/>
+            {/* <div className="pt-4 text-amber-300">
               <p>{initDataState?.user?.id}</p>
               <p>{initDataState?.user?.first_name}</p>
               <p>{initDataState?.user?.last_name}</p>
               <p>{initDataState?.auth_date.getTime()}</p>
               <p>{initDataState?.user?.language_code}</p>
               <p>
-                <a href={initDataState?.user?.photo_url}></a>
+                {initDataState?.user?.photo_url}
               </p>
               <p className="text-white">{initDataRaw}</p>
-            </div>
+            </div> */}
             <Slipper />
             <GiftCards />
             <ProgressBar />
@@ -63,11 +67,13 @@ export const IndexPage: FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/init-data">
+      <MotionSensorComponent/>
+      <LocationComponent />
+      {/* <Link to="/init-data">
         <Cell subtitle="User data, chat information, technical data">
           Init Data
         </Cell>
-      </Link>
+      </Link> */}
       {/* <List>
         <Section
           header="Features"
