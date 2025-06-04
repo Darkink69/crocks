@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between w-10/12">
       {/* Run */}
       <div>
         <svg

@@ -1,19 +1,32 @@
 // import React from 'react';
+import { observer } from "mobx-react-lite";
+import store from "../../store/store";
+import { useEffect, useState } from "react";
 
-const Header = ({ava}: any) => {
+const Header = observer(({ ava }: any) => {
+  const [steps, setSteps] = useState<number>(0);
+
+  useEffect(() => {
+    setSteps(store.steps);
+  }, [store.steps]);
+
   return (
     <header className="flex justify-between">
       <div className="relative pr-4">
         <div className="rounded-full w-[50px] h-[50px] flex items-center justify-center overflow-hidden">
           <img
-            src={ava ? ava : "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/ava.png"}
+            src={
+              ava
+                ? ava
+                : "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/ava.png"
+            }
             alt="Avatar"
             className="w-full h-full object-cover"
           />
         </div>
         <div className="absolute top-9 left-4">
           <span className="text-[#00FF99] bg-[#2B2A2A] text-xs font-maven-pro pt-0.5 pb-0.5 pr-2 pl-2 rounded-2xl">
-            245km
+            {steps}
           </span>
         </div>
       </div>
@@ -27,7 +40,7 @@ const Header = ({ava}: any) => {
               className="w-5 h-5"
             />
             <span className="text-white text-xs font-maven-pro font-medium pr-2">
-              2355.65
+              {store.steps}
             </span>
           </div>
           <div className="flex items-center space-x-1">
@@ -80,6 +93,6 @@ const Header = ({ava}: any) => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

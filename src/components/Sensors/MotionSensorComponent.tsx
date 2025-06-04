@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import store from "../../store/store";
 
 interface MotionData {
   acceleration: DeviceMotionEvent["acceleration"];
@@ -7,7 +9,7 @@ interface MotionData {
   interval: DeviceMotionEvent["interval"];
 }
 
-const MotionSensorComponent = () => {
+const MotionSensorComponent = observer(() => {
   const [motionData, setMotionData] = useState<MotionData | null>(null);
   const [stepCount, setStepCount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +26,7 @@ const MotionSensorComponent = () => {
         if (permissionState === "granted") {
           setIsPermissionGranted(true);
           startMotionTracking();
+          store.setStart(true);
         } else {
           setError("Permission to access motion sensors was denied");
         }
@@ -38,6 +41,7 @@ const MotionSensorComponent = () => {
       // Для браузеров, которые не требуют явного разрешения
       setIsPermissionGranted(true);
       startMotionTracking();
+      store.setStart(true);
     }
   };
 
@@ -61,6 +65,7 @@ const MotionSensorComponent = () => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
+        store.setSteps(stepCount);
       }
     }
   };
@@ -76,6 +81,14 @@ const MotionSensorComponent = () => {
       setError("DeviceMotion API is not supported in this browser");
     }
   };
+
+  useEffect(() => {
+    if (store.start) {
+      requestPermission();
+    } else {
+      store.setSteps(0);
+    }
+  }, [store.start]);
 
   // Очистка при размонтировании
   useEffect(() => {
@@ -131,6 +144,6 @@ const MotionSensorComponent = () => {
       {error && <div className="error">{error}</div>}
     </div>
   );
-};
+});
 
 export default MotionSensorComponent;

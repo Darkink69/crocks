@@ -2,6 +2,8 @@
 // import { Cell } from "@telegram-apps/telegram-ui";
 
 // import { Link } from "@/components/Link/Link.tsx";
+import { observer } from "mobx-react-lite";
+import store from "../../store/store";
 import { Page } from "@/components/Page.tsx";
 
 // import tonSvg from "./ton.svg";
@@ -35,7 +37,7 @@ import { LocationComponent } from "@/components/Sensors/useTelegramLocation";
 //   return Object.entries(user).map(([title, value]) => ({ title, value }));
 // }
 
-export const IndexPage: FC = () => {
+export const IndexPage: FC = observer(() => {
   const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
   console.log(initDataRaw);
@@ -45,30 +47,21 @@ export const IndexPage: FC = () => {
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
         <div className="relative bg-[#1A1A1A] w-full sm:max-w-[360px] h-[100vh] md:h-[830px]">
           <div className="p-4">
-            <Header ava={initDataState?.user?.photo_url}/>
-            {/* <div className="pt-4 text-amber-300">
-              <p>{initDataState?.user?.id}</p>
-              <p>{initDataState?.user?.first_name}</p>
-              <p>{initDataState?.user?.last_name}</p>
-              <p>{initDataState?.auth_date.getTime()}</p>
-              <p>{initDataState?.user?.language_code}</p>
-              <p>
-                {initDataState?.user?.photo_url}
-              </p>
-              <p className="text-white">{initDataRaw}</p>
-            </div> */}
+            <Header ava={initDataState?.user?.photo_url} steps={store.steps} />
             <Slipper />
             <GiftCards />
             <ProgressBar />
-            <div className="absolute w-10/12 -bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute w-full -bottom-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#1A1A1A] h-1/6">
               <BtnStart />
               <Footer />
+              {/* <div className=" w-full"></div> */}
             </div>
           </div>
         </div>
       </div>
-      <MotionSensorComponent/>
+      <MotionSensorComponent />
       <LocationComponent />
+
       {/* <Link to="/init-data">
         <Cell subtitle="User data, chat information, technical data">
           Init Data
@@ -113,4 +106,4 @@ export const IndexPage: FC = () => {
       </List> */}
     </Page>
   );
-};
+});
