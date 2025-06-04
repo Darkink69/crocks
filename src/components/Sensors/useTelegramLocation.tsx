@@ -12,6 +12,7 @@ declare global {
   interface Window {
     Telegram: {
       WebApp: {
+        requestPermission(arg0: string, arg1: (granted: any) => void): unknown;
         isLocationRequested: boolean;
         sendData: (data: string) => void;
         onEvent: (event: string, callback: (data: string) => void) => void;

@@ -65,7 +65,7 @@ const MotionSensorComponent = observer(() => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
-        store.setSteps(stepCount + 1);
+        store.setSteps(stepCount);
       }
     }
   };
@@ -87,7 +87,7 @@ const MotionSensorComponent = observer(() => {
 
   //   let timerId = setInterval(function () {
   //     store.setSteps(current);
-  //     if (current == 1000) {
+  //     if (current == 100 || store.start === false) {
   //       clearInterval(timerId);
   //     }
   //     current++;
@@ -99,7 +99,7 @@ const MotionSensorComponent = observer(() => {
       requestPermission();
       // printNumbers();
     } else {
-      store.setSteps(0);
+      store.setSteps(-1);
     }
   }, [store.start]);
 

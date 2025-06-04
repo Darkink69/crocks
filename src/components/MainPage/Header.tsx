@@ -1,7 +1,7 @@
 // import React from 'react';
 import { observer } from "mobx-react-lite";
 import store from "../../store/store";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 const Header = observer(({ ava }: any) => {
   // const [steps, setSteps] = useState<number>(store.steps);
