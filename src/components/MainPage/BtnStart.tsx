@@ -7,14 +7,19 @@ const BtnStart = observer(() => {
     <div className="flex justify-center pb-4">
       {store.start ? (
         <button
-          onClick={() => store.setStart(false)}
+          onClick={() => {
+            store.setStart(false);
+            store.setSteps(0);
+          }}
           className="w-[126px] h-[53px] font-maven-pro font-medium rounded-full text-white text-xl bg-gradient-to-b from-[#c5456b] to-[#ff5e00]"
         >
           Stop
         </button>
       ) : (
         <button
-          onClick={() => store.setStart(true)}
+          onClick={() => {
+            store.setStart(true);
+          }}
           className="w-[126px] h-[53px] font-maven-pro font-medium rounded-full text-black text-xl bg-gradient-to-b from-[#74F3EC] to-[#00FF99]"
         >
           Start

@@ -4,11 +4,11 @@ import store from "../../store/store";
 import { useEffect, useState } from "react";
 
 const Header = observer(({ ava }: any) => {
-  const [steps, setSteps] = useState<number>(0);
+  // const [steps, setSteps] = useState<number>(store.steps);
 
-  useEffect(() => {
-    setSteps(store.steps);
-  }, [store.steps]);
+  // useEffect(() => {
+  //   setSteps(store.steps);
+  // }, [store.steps]);
 
   return (
     <header className="flex justify-between">
@@ -26,7 +26,7 @@ const Header = observer(({ ava }: any) => {
         </div>
         <div className="absolute top-9 left-4">
           <span className="text-[#00FF99] bg-[#2B2A2A] text-xs font-maven-pro pt-0.5 pb-0.5 pr-2 pl-2 rounded-2xl">
-            {steps}
+            {store.steps}
           </span>
         </div>
       </div>
@@ -40,7 +40,7 @@ const Header = observer(({ ava }: any) => {
               className="w-5 h-5"
             />
             <span className="text-white text-xs font-maven-pro font-medium pr-2">
-              {store.steps}
+              2343.5
             </span>
           </div>
           <div className="flex items-center space-x-1">

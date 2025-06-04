@@ -8,7 +8,7 @@ class Store {
     makeAutoObservable(this);
   }
 
-  setSteps(steps: any) {
+  setSteps(steps: number) {
     this.steps = steps;
   }
 
