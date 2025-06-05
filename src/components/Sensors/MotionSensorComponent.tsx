@@ -11,7 +11,7 @@ interface MotionData {
 
 const MotionSensorComponent = observer(() => {
   const [motionData, setMotionData] = useState<MotionData | null>(null);
-  const [stepCount, setStepCount] = useState<number>(0);
+  const [stepCount, setStepCount] = useState<number>(store.steps);
   const [error, setError] = useState<string | null>(null);
   const [isPermissionGranted, setIsPermissionGranted] =
     useState<boolean>(false);
@@ -47,6 +47,7 @@ const MotionSensorComponent = observer(() => {
 
   // Обработчик данных с датчиков
   const handleDeviceMotion = (event: DeviceMotionEvent) => {
+    store.setSteps(stepCount);
     setMotionData({
       acceleration: event.acceleration,
       accelerationIncludingGravity: event.accelerationIncludingGravity,
@@ -65,7 +66,7 @@ const MotionSensorComponent = observer(() => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
-        store.setSteps(stepCount);
+        // store.setSteps(stepCount);
       }
     }
   };
@@ -82,24 +83,32 @@ const MotionSensorComponent = observer(() => {
     }
   };
 
-  // function printNumbers() {
-  //   let current = 1;
+  // const setHeaderSteps = () => {
+  //   // let current = store.steps;
 
   //   let timerId = setInterval(function () {
-  //     store.setSteps(current);
-  //     if (current == 100 || store.start === false) {
+  //     store.setSteps(stepCount);
+  //     if (store.start === false) {
+  //       localStorage.setItem(
+  //         "crocks",
+  //         JSON.stringify({ steps: store.steps, data: 0 })
+  //       );
   //       clearInterval(timerId);
   //     }
-  //     current++;
-  //   }, 1000);
-  // }
+  //     // current++;
+  //   }, 2000);
+  // };
+
+  // useEffect(() => {
+  //   setHeaderSteps();
+  // }, [stepCount]);
 
   useEffect(() => {
     if (store.start) {
+      // setHeaderSteps();
       requestPermission();
-      // printNumbers();
     } else {
-      store.setSteps(-1);
+      // store.setSteps(0);
     }
   }, [store.start]);
 
