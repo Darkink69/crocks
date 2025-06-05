@@ -26,7 +26,7 @@ const MotionSensorComponent = observer(() => {
         if (permissionState === "granted") {
           setIsPermissionGranted(true);
           startMotionTracking();
-          store.setStart(true);
+          // store.setStart(true);
         } else {
           setError("Permission to access motion sensors was denied");
         }
@@ -41,13 +41,13 @@ const MotionSensorComponent = observer(() => {
       // Для браузеров, которые не требуют явного разрешения
       setIsPermissionGranted(true);
       startMotionTracking();
-      store.setStart(true);
+      // store.setStart(true);
     }
   };
 
   // Обработчик данных с датчиков
   const handleDeviceMotion = (event: DeviceMotionEvent) => {
-    store.setSteps(stepCount);
+    
     setMotionData({
       acceleration: event.acceleration,
       accelerationIncludingGravity: event.accelerationIncludingGravity,
@@ -66,7 +66,8 @@ const MotionSensorComponent = observer(() => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
-        // store.setSteps(stepCount);
+        store.setSteps(stepCount);
+        store.setMo(totalAcceleration)
       }
     }
   };
@@ -107,9 +108,16 @@ const MotionSensorComponent = observer(() => {
     if (store.start) {
       // setHeaderSteps();
       requestPermission();
+      // startMotionTracking()
     } else {
-      // store.setSteps(0);
-    }
+      localStorage.setItem("crocks",JSON.stringify({ steps: store.steps, data: 0 }));
+     
+      window.removeEventListener(
+        "devicemotion",
+        handleDeviceMotion as EventListener
+      );
+    };
+    
   }, [store.start]);
 
   // Очистка при размонтировании
