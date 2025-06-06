@@ -54,14 +54,16 @@ export const IndexPage: FC = observer(() => {
             <Slipper />
             <GiftCards />
             <ProgressBar />
-            <div className="absolute w-full -bottom-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#1A1A1A] h-1/6">
-              <BtnStart />
+          </div>
+          <div className="absolute w-full bg-[#1A1A1A] h-1/6 bottom-0">
+            <BtnStart />
+            <div className="flex justify-center ">
               <Footer />
             </div>
           </div>
         </div>
       </div>
-      {/* <MotionSensorApp/> */}
+      {/* <MotionSensorApp /> */}
       <MotionSensorComponent />
       {/* <LocationComponent /> */}
 

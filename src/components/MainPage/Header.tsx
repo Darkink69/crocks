@@ -4,7 +4,6 @@ import store from "../../store/store";
 // import { useEffect, useState } from "react";
 
 const Header = observer(({ ava }: any) => {
-
   return (
     <header className="flex justify-between">
       <div className="relative pr-4">
@@ -36,6 +35,7 @@ const Header = observer(({ ava }: any) => {
             />
             <span className="text-white text-xs font-maven-pro font-medium pr-2">
               {store.mo}
+              {/* 1234.5 */}
             </span>
           </div>
           <div className="flex items-center space-x-1">

@@ -15,6 +15,7 @@ const MotionSensorComponent = observer(() => {
   const [error, setError] = useState<string | null>(null);
   const [isPermissionGranted, setIsPermissionGranted] =
     useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   // Функция для запроса разрешения (особенно важно для iOS 13+)
   const requestPermission = async () => {
@@ -26,7 +27,6 @@ const MotionSensorComponent = observer(() => {
         if (permissionState === "granted") {
           setIsPermissionGranted(true);
           startMotionTracking();
-          // store.setStart(true);
         } else {
           setError("Permission to access motion sensors was denied");
         }
@@ -41,13 +41,12 @@ const MotionSensorComponent = observer(() => {
       // Для браузеров, которые не требуют явного разрешения
       setIsPermissionGranted(true);
       startMotionTracking();
-      // store.setStart(true);
     }
   };
 
   // Обработчик данных с датчиков
   const handleDeviceMotion = (event: DeviceMotionEvent) => {
-    
+    // if (!isActive) return;
     setMotionData({
       acceleration: event.acceleration,
       accelerationIncludingGravity: event.accelerationIncludingGravity,
@@ -66,14 +65,15 @@ const MotionSensorComponent = observer(() => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
-        store.setSteps(stepCount);
-        store.setMo(totalAcceleration)
+        // store.setSteps(stepCount + 1);
+        store.setMo(totalAcceleration);
       }
     }
   };
 
   // Запуск отслеживания движения
   const startMotionTracking = () => {
+    setIsActive(true);
     if (window.DeviceMotionEvent) {
       window.addEventListener(
         "devicemotion",
@@ -83,6 +83,20 @@ const MotionSensorComponent = observer(() => {
       setError("DeviceMotion API is not supported in this browser");
     }
   };
+
+  const stopTracking = () => {
+    setIsActive(false);
+    window.removeEventListener(
+      "devicemotion",
+      handleDeviceMotion as EventListener
+    );
+  };
+
+  //   useEffect(() => {
+  //   return () => {
+  //     stopTracking();
+  //   };
+  // }, [stopTracking]);
 
   // const setHeaderSteps = () => {
   //   // let current = store.steps;
@@ -100,24 +114,22 @@ const MotionSensorComponent = observer(() => {
   //   }, 2000);
   // };
 
-  // useEffect(() => {
-  //   setHeaderSteps();
-  // }, [stepCount]);
+  useEffect(() => {
+    store.setSteps(stepCount);
+  }, [stepCount]);
 
   useEffect(() => {
     if (store.start) {
       // setHeaderSteps();
+      setIsActive(true);
       requestPermission();
-      // startMotionTracking()
     } else {
-      localStorage.setItem("crocks",JSON.stringify({ steps: store.steps, data: 0 }));
-     
-      window.removeEventListener(
-        "devicemotion",
-        handleDeviceMotion as EventListener
+      localStorage.setItem(
+        "crocks",
+        JSON.stringify({ steps: store.steps, data: 0 })
       );
-    };
-    
+      stopTracking();
+    }
   }, [store.start]);
 
   // Очистка при размонтировании
@@ -134,7 +146,7 @@ const MotionSensorComponent = observer(() => {
     <div className="motion-sensor-container text-black">
       <h2>Motion Sensors Data</h2>
 
-      {!isPermissionGranted ? (
+      {!isPermissionGranted || !isActive ? (
         <button onClick={requestPermission}>Enable Motion Sensors</button>
       ) : (
         <>
