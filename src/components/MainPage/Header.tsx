@@ -6,7 +6,7 @@ import store from "../../store/store";
 const Header = observer(({ ava }: any) => {
   return (
     <header className="flex justify-between">
-      <div className="relative pr-4">
+      <div className="relative">
         <div className="rounded-full w-[50px] h-[50px] flex items-center justify-center overflow-hidden">
           <img
             src={
@@ -34,8 +34,8 @@ const Header = observer(({ ava }: any) => {
               className="w-5 h-5"
             />
             <span className="text-white text-xs font-maven-pro font-medium pr-2">
-              {store.mo}
-              {/* 1234.5 */}
+              {/* {store.mo} */}
+              1234.5
             </span>
           </div>
           <div className="flex items-center space-x-1">

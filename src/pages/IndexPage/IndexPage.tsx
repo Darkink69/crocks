@@ -49,14 +49,20 @@ export const IndexPage: FC = observer(() => {
     <Page back={false}>
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
         <div className="relative bg-[#1A1A1A] w-full sm:max-w-[360px] h-[100vh] md:h-[830px]">
-          <div className="p-4">
+          <div className="md:absolute fixed w-full p-4 h-[80px] bg-[#1A1A1A] z-10">
             <Header ava={initDataState?.user?.photo_url} />
-            <Slipper />
+          </div>
+          <div className="p-4 pt-20">
+            <div className="">
+              <Slipper />
+            </div>
             <GiftCards />
             <ProgressBar />
           </div>
-          <div className="absolute w-full bg-[#1A1A1A] h-1/6 bottom-0">
-            <BtnStart />
+          <div className="md:absolute fixed w-full bg-[#1A1A1A] h-[140px] bottom-0">
+            <div className="pt-2">
+              <BtnStart />
+            </div>
             <div className="flex justify-center ">
               <Footer />
             </div>
