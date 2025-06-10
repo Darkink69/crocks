@@ -3,7 +3,7 @@
 const GiftCard = ({ data }: any) => {
   return (
     <>
-      <div className="relative">
+      <div className="relative font-maven-pro">
         <div className="bg-[#2B2A2A] h-[120px] rounded-lg shadow-md p-4 flex flex-col items-center justify-center space-y-2">
           <div className="absolute top-3 left-2">{data.status}</div>
           {/* Gift img */}

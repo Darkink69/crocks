@@ -42,8 +42,6 @@ export const IndexPage: FC = observer(() => {
   // const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
   // console.log(initDataRaw);
-  // const tg = window.Telegram.WebApp;
-  // console.log(tg, 'tg!')
 
   return (
     <Page back={false}>
