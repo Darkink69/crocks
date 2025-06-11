@@ -86,10 +86,12 @@ const MotionSensorComponent = observer(() => {
 
   const stopTracking = () => {
     setIsActive(false);
-    window.removeEventListener(
-      "devicemotion",
-      handleDeviceMotion as EventListener
-    );
+    return () => {
+      window.removeEventListener(
+        "devicemotion",
+        handleDeviceMotion as EventListener
+      );
+    };
   };
 
   //   useEffect(() => {

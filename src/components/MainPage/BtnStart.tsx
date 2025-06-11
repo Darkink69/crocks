@@ -9,6 +9,7 @@ const BtnStart = observer(() => {
         <button
           onClick={() => {
             store.setStart(false);
+            document.location.reload();
           }}
           className="w-[126px] h-[53px] font-maven-pro font-medium rounded-full text-white text-xl bg-gradient-to-b from-[#c5456b] to-[#ff5e00]"
         >
