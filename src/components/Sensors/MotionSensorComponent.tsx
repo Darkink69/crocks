@@ -99,7 +99,6 @@ const MotionSensorComponent = observer(() => {
   //     // current++;
   //   }, 2000);
   // };
-  
 
   // useEffect(() => {
   //   setHeaderSteps();
