@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 class Store {
   steps = JSON.parse(localStorage.getItem("crocks") || "{}").steps || 0;
-  mo = 0
+  mo = 1
 
   start = false;
 
