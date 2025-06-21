@@ -24,6 +24,7 @@ import {
 } from "@telegram-apps/sdk-react";
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
 import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
+
 // import { useTelegramLocation } from "@/components/Sensors/useTelegramLocation";
 // import { LocationComponent } from "@/components/Sensors/useTelegramLocation";
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
@@ -39,11 +40,13 @@ import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
 // }
 
 export const IndexPage: FC = observer(() => {
-  // const initDataRaw = useSignal(_initDataRaw);
+  const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
-  // console.log(initDataRaw);
+  console.log(initDataRaw);
+  // console.log(initDataState);
   // const tg = window.Telegram.WebApp;
   // console.log(tg, 'tg!')
+  console.log(import.meta.env.VITE_API_URL)
 
   return (
     <Page back={false}>
