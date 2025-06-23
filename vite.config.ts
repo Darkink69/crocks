@@ -5,8 +5,12 @@ import mkcert from 'vite-plugin-mkcert';
 import tailwindcss from '@tailwindcss/vite'
 
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: 'window',
+  },
   base: '/crocks/',
   css: {
     preprocessorOptions: {

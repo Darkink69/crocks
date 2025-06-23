@@ -25,6 +25,10 @@ import {
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
 import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
 
+// import { useEffect } from 'react';
+// import SockJS from 'sockjs-client';
+// import Stomp from 'stompjs';
+
 // import { useTelegramLocation } from "@/components/Sensors/useTelegramLocation";
 // import { LocationComponent } from "@/components/Sensors/useTelegramLocation";
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
@@ -38,15 +42,68 @@ import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
 // function getUserRows(user: User): DisplayDataRow[] {
 //   return Object.entries(user).map(([title, value]) => ({ title, value }));
 // }
+// import { useState, useEffect } from 'react';
+// import { connect, disconnect, sendMessage, subscribe } from '@/components/websocket';
+import WebSocketComponent from '@/components/WebSocketComponent';
+
 
 export const IndexPage: FC = observer(() => {
+  // const [messages, setMessages] = useState<any>([]);
+  // const [input, setInput] = useState('');
+  // const [isConnected, setIsConnected] = useState(false);
+
   const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
   console.log(initDataRaw);
+  // console.log(messages, input, isConnected)
   // console.log(initDataState);
   // const tg = window.Telegram.WebApp;
   // console.log(tg, 'tg!')
-  console.log(import.meta.env.VITE_API_URL)
+  // console.log(import.meta.env.VITE_API_URL)
+
+  // const handleSend = () => {
+
+  //   sendMessage('/', { 
+  //     "messageType" : "USER_REQUEST",
+  //     "user": {
+  //       "id" : 111111,
+  //       "firstName" : "Name",
+  //       "lastName" : "nfjfjfj",
+  //       "username" :  "name",
+  //       "languageCode": "ru"
+  //     }
+  //   });
+  //   setInput('');
+
+  // };
+
+
+  // useEffect(() => {
+  //   // Подключаемся при монтировании компонента
+  //   connect(
+  //     (client) => {
+  //       setIsConnected(true);
+  //       // Подписываемся на получение сообщений
+  //       subscribe('/', (message: any) => {
+  //         setMessages((prev: any) => [...prev, message]);
+  //       });
+  //     },
+  //     (error: any) => {
+  //       console.error('Connection error:', error);
+  //       setIsConnected(false);
+  //     }
+  //   );
+  //   // handleSend()
+
+  //   // Отключаемся при размонтировании
+  //   return () => {
+  //     disconnect();
+  //     setIsConnected(false);
+  //   };
+  // }, []);
+
+
+
 
   return (
     <Page back={false}>
@@ -65,6 +122,7 @@ export const IndexPage: FC = observer(() => {
         </div>
       </div>
       {/* <MotionSensorApp/> */}
+      <WebSocketComponent />
       <MotionSensorComponent />
       {/* <LocationComponent /> */}
 
