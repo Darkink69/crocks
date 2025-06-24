@@ -1,58 +1,81 @@
-import SockJS from 'sockjs-client';
-import { Client, IFrame } from '@stomp/stompjs';
+import { useState, useEffect } from "react";
 
-let stompClient: Client | null = null;
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  username: string;
+  languageCode: string;
+}
 
-export const connect = (onConnect: (arg0: Client | null) => any, onError: (arg0: IFrame) => any) => {
-  console.log(import.meta.env.VITE_API_URL)
-//   const url = import.meta.env.VITE_API_PRIVATE_DOMAIN
-  const url = 'ws://94.228.125.251/ws'
-  console.log(url, 'socket!')
+interface WebSocketMessage {
+  messageType: string;
+  user: User;
+}
 
-  const socket = new SockJS(url);
-  stompClient = new Client({
-    webSocketFactory: () => socket,
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-    onConnect: (frame) => {
-      console.log('Connected: ' + frame);
-      onConnect && onConnect(stompClient);
-    },
-    onStompError: (frame) => {
-      console.error('Broker reported error: ' + frame.headers['message']);
-      console.error('Additional details: ' + frame.body);
-      onError && onError(frame);
-    },
-    onDisconnect: () => {
-      console.log('Disconnected');
+export default function WebSocketComponent() {
+  const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    const ws = new WebSocket("wss://oleg181219-stepbycrocs-c321.twc1.net/ws");
+    // const ws = new WebSocket("wss://echo.websocket.org");
+
+    ws.onopen = () => {
+      console.log("Connected to WebSocket server");
+      sendInitialMessage(ws);
+    };
+
+    ws.onmessage = (event) => {
+      setReceivedMessages((prev) => [...prev, event.data]);
+    };
+
+    ws.onclose = () => {
+      console.log("Disconnected from WebSocket server");
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    setSocket(ws);
+    console.log(socket);
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  const sendInitialMessage = (ws: WebSocket) => {
+    const message: WebSocketMessage = {
+      messageType: "USER_REQUEST",
+      user: {
+        id: Math.floor(Math.random() * 10000),
+        firstName: "Name",
+        lastName: "zzzzzz",
+        username: "name",
+        languageCode: "ru",
+      },
+    };
+
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(message));
+    } else {
+      console.log("WebSocket not ready yet");
     }
-  });
+  };
 
-  stompClient.activate();
-};
-
-export const disconnect = () => {
-  if (stompClient !== null) {
-    stompClient.deactivate();
-  }
-  console.log("Disconnected");
-};
-
-export const sendMessage = (destination: any, body: any) => {
-  if (stompClient && stompClient.connected) {
-    stompClient.publish({
-      destination: destination,
-      body: JSON.stringify(body)
-    });
-  }
-};
-
-export const subscribe = (destination: string, callback: (arg0: any) => void) => {
-  if (stompClient && stompClient.connected) {
-    return stompClient.subscribe(destination, (message) => {
-      callback(JSON.parse(message.body));
-    });
-  }
-  return null;
-};
+  return (
+    <div className="text-black">
+      <h2>WebSocket Connection</h2>
+      <div>
+        <h3>Received Messages:</h3>
+        <ul>
+          {receivedMessages.map((msg, index) => (
+            <li key={index}>{msg}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}

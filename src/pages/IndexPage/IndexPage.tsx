@@ -43,18 +43,17 @@ import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
 //   return Object.entries(user).map(([title, value]) => ({ title, value }));
 // }
 // import { useState, useEffect } from 'react';
-// import { connect, disconnect, sendMessage, subscribe } from '@/components/websocket';
-import WebSocketComponent from '@/components/WebSocketComponent';
-
+import Websocket from "@/components/websocket";
+// import WebSocketComponent from "@/components/WebSocketComponent";
 
 export const IndexPage: FC = observer(() => {
   // const [messages, setMessages] = useState<any>([]);
   // const [input, setInput] = useState('');
   // const [isConnected, setIsConnected] = useState(false);
 
-  const initDataRaw = useSignal(_initDataRaw);
+  // const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
-  console.log(initDataRaw);
+  // console.log(initDataRaw);
   // console.log(messages, input, isConnected)
   // console.log(initDataState);
   // const tg = window.Telegram.WebApp;
@@ -63,7 +62,7 @@ export const IndexPage: FC = observer(() => {
 
   // const handleSend = () => {
 
-  //   sendMessage('/', { 
+  //   sendMessage('/', {
   //     "messageType" : "USER_REQUEST",
   //     "user": {
   //       "id" : 111111,
@@ -76,7 +75,6 @@ export const IndexPage: FC = observer(() => {
   //   setInput('');
 
   // };
-
 
   // useEffect(() => {
   //   // Подключаемся при монтировании компонента
@@ -102,9 +100,6 @@ export const IndexPage: FC = observer(() => {
   //   };
   // }, []);
 
-
-
-
   return (
     <Page back={false}>
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
@@ -122,7 +117,8 @@ export const IndexPage: FC = observer(() => {
         </div>
       </div>
       {/* <MotionSensorApp/> */}
-      <WebSocketComponent />
+      {/* <WebSocketComponent /> */}
+      <Websocket />
       <MotionSensorComponent />
       {/* <LocationComponent /> */}
 
