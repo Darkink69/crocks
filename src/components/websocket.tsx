@@ -50,7 +50,7 @@ export default function WebSocketComponent() {
     const message: WebSocketMessage = {
       messageType: "USER_REQUEST",
       user: {
-        id: Math.floor(Math.random() * 10000),
+        id: Math.floor(Math.random() * 100000),
         firstName: "Name",
         lastName: "zzzzzz",
         username: "name",
