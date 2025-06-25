@@ -6,9 +6,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // define: {
-  //   global: "window",
-  // },
   base: "/",
   css: {
     preprocessorOptions: {
