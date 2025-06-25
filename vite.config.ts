@@ -9,7 +9,7 @@ export default defineConfig({
   // define: {
   //   global: "window",
   // },
-  base: "/stepByCrocsFront/",
+  base: "/",
   css: {
     preprocessorOptions: {
       scss: {
