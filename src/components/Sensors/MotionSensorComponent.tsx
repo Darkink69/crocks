@@ -47,7 +47,6 @@ const MotionSensorComponent = observer(() => {
 
   // Обработчик данных с датчиков
   const handleDeviceMotion = (event: DeviceMotionEvent) => {
-    
     setMotionData({
       acceleration: event.acceleration,
       accelerationIncludingGravity: event.accelerationIncludingGravity,
@@ -66,8 +65,7 @@ const MotionSensorComponent = observer(() => {
       if (totalAcceleration > 20) {
         // Пороговое значение нужно настраивать
         setStepCount((prev) => prev + 1);
-        store.setSteps(stepCount);
-        store.setMo(totalAcceleration)
+        // store.setSteps(stepCount);
       }
     }
   };
@@ -100,28 +98,34 @@ const MotionSensorComponent = observer(() => {
   //   }, 2000);
   // };
 
-  // useEffect(() => {
-  //   setHeaderSteps();
-  // }, [stepCount]);
+  useEffect(() => {
+    store.setSteps(stepCount);
+  }, [stepCount]);
 
   useEffect(() => {
     if (store.start) {
-      // setHeaderSteps();
       requestPermission();
       // startMotionTracking()
     } else {
-      localStorage.setItem("crocks",JSON.stringify({ steps: store.steps, data: 0 }));
-     
-      window.removeEventListener(
-        "devicemotion",
-        handleDeviceMotion as EventListener
+      localStorage.setItem(
+        "crocks",
+        JSON.stringify({ steps: store.steps, data: 0 })
       );
-    };
-    
+
+      return () => {
+        window.removeEventListener(
+          "devicemotion",
+          handleDeviceMotion as EventListener
+        );
+      };
+    }
   }, [store.start]);
 
   // Очистка при размонтировании
   useEffect(() => {
+    console.log(motionData);
+    console.log(isPermissionGranted);
+    console.log(error);
     return () => {
       window.removeEventListener(
         "devicemotion",
@@ -131,48 +135,49 @@ const MotionSensorComponent = observer(() => {
   }, []);
 
   return (
-    <div className="motion-sensor-container text-black">
-      <h2>Motion Sensors Data</h2>
+    <></>
+    // <div className="motion-sensor-container text-black">
+    //   <h2>Motion Sensors Data</h2>
 
-      {!isPermissionGranted ? (
-        <button onClick={requestPermission}>Enable Motion Sensors</button>
-      ) : (
-        <>
-          <div className="step-counter">
-            <h3>Step Count: {stepCount}</h3>
-            <button onClick={() => setStepCount(0)}>Reset</button>
-          </div>
+    //   {!isPermissionGranted ? (
+    //     <button onClick={requestPermission}>Enable Motion Sensors</button>
+    //   ) : (
+    //     <>
+    //       <div className="step-counter">
+    //         <h3>Step Count: {stepCount}</h3>
+    //         <button onClick={() => setStepCount(0)}>Reset</button>
+    //       </div>
 
-          <div className="sensor-data">
-            <h3>Acceleration (without gravity):</h3>
-            <p>X: {motionData?.acceleration?.x?.toFixed(2) ?? "N/A"}</p>
-            <p>Y: {motionData?.acceleration?.y?.toFixed(2) ?? "N/A"}</p>
-            <p>Z: {motionData?.acceleration?.z?.toFixed(2) ?? "N/A"}</p>
+    //       <div className="sensor-data">
+    //         <h3>Acceleration (without gravity):</h3>
+    //         <p>X: {motionData?.acceleration?.x?.toFixed(2) ?? "N/A"}</p>
+    //         <p>Y: {motionData?.acceleration?.y?.toFixed(2) ?? "N/A"}</p>
+    //         <p>Z: {motionData?.acceleration?.z?.toFixed(2) ?? "N/A"}</p>
 
-            <h3>Acceleration (with gravity):</h3>
-            <p>
-              X:{" "}
-              {motionData?.accelerationIncludingGravity?.x?.toFixed(2) ?? "N/A"}
-            </p>
-            <p>
-              Y:{" "}
-              {motionData?.accelerationIncludingGravity?.y?.toFixed(2) ?? "N/A"}
-            </p>
-            <p>
-              Z:{" "}
-              {motionData?.accelerationIncludingGravity?.z?.toFixed(2) ?? "N/A"}
-            </p>
+    //         <h3>Acceleration (with gravity):</h3>
+    //         <p>
+    //           X:{" "}
+    //           {motionData?.accelerationIncludingGravity?.x?.toFixed(2) ?? "N/A"}
+    //         </p>
+    //         <p>
+    //           Y:{" "}
+    //           {motionData?.accelerationIncludingGravity?.y?.toFixed(2) ?? "N/A"}
+    //         </p>
+    //         <p>
+    //           Z:{" "}
+    //           {motionData?.accelerationIncludingGravity?.z?.toFixed(2) ?? "N/A"}
+    //         </p>
 
-            <h3>Rotation Rate:</h3>
-            <p>Alpha: {motionData?.rotationRate?.alpha?.toFixed(2) ?? "N/A"}</p>
-            <p>Beta: {motionData?.rotationRate?.beta?.toFixed(2) ?? "N/A"}</p>
-            <p>Gamma: {motionData?.rotationRate?.gamma?.toFixed(2) ?? "N/A"}</p>
-          </div>
-        </>
-      )}
+    //         <h3>Rotation Rate:</h3>
+    //         <p>Alpha: {motionData?.rotationRate?.alpha?.toFixed(2) ?? "N/A"}</p>
+    //         <p>Beta: {motionData?.rotationRate?.beta?.toFixed(2) ?? "N/A"}</p>
+    //         <p>Gamma: {motionData?.rotationRate?.gamma?.toFixed(2) ?? "N/A"}</p>
+    //       </div>
+    //     </>
+    //   )}
 
-      {error && <div className="error">{error}</div>}
-    </div>
+    //   {error && <div className="error">{error}</div>}
+    // </div>
   );
 });
 

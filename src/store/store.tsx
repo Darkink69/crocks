@@ -2,8 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 class Store {
   steps = JSON.parse(localStorage.getItem("crocks") || "{}").steps || 0;
-  mo = 1
-
+  user: any;
   start = false;
 
   constructor() {
@@ -13,12 +12,14 @@ class Store {
   setSteps(steps: number) {
     this.steps = steps;
   }
-  setMo(mo: number) {
-    this.mo = mo;
-  }
 
   setStart(start: boolean) {
     this.start = start;
+  }
+
+  setUser(user: any) {
+    this.user = user;
+    console.log(user);
   }
 }
 

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import store from "../store/store";
 
 interface User {
   id: number;
@@ -13,7 +15,8 @@ interface WebSocketMessage {
   user: User;
 }
 
-export default function WebSocketComponent() {
+export const WebSocketComponent = observer(() => {
+  // export default function () {
   const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
@@ -28,6 +31,7 @@ export default function WebSocketComponent() {
 
     ws.onmessage = (event) => {
       setReceivedMessages((prev) => [...prev, event.data]);
+      console.log(receivedMessages, "received!");
     };
 
     ws.onclose = () => {
@@ -50,32 +54,38 @@ export default function WebSocketComponent() {
     const message: WebSocketMessage = {
       messageType: "USER_REQUEST",
       user: {
-        id: Math.floor(Math.random() * 100000),
-        firstName: "Name",
-        lastName: "zzzzzz",
-        username: "name",
-        languageCode: "ru",
+        id: store.user?.id || 1,
+        firstName: store.user?.first_name || "firstName",
+        lastName: store.user?.last_name || "lastName",
+        username: store.user?.user_name || "username",
+        languageCode: store.user?.languageCode || "ru",
       },
     };
 
+    console.log(message);
+
     if (ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify(message));
+      console.log(message, "send!");
     } else {
       console.log("WebSocket not ready yet");
     }
   };
 
   return (
-    <div className="text-black">
-      <h2>WebSocket Connection</h2>
-      <div>
-        <h3>Received Messages:</h3>
-        <ul>
-          {receivedMessages.map((msg, index) => (
-            <li key={index}>{msg}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <></>
+    // <div className="text-black">
+    //   <h2>WebSocket Connection</h2>
+    //   <div>
+    //     <h3>Received Messages:</h3>
+    //     <ul>
+    //       {receivedMessages.map((msg, index) => (
+    //         <li key={index}>{msg}</li>
+    //       ))}
+    //     </ul>
+    //   </div>
+    // </div>
   );
-}
+});
+
+export default WebSocketComponent;

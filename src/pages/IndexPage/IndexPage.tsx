@@ -3,7 +3,7 @@
 
 // import { Link } from "@/components/Link/Link.tsx";
 import { observer } from "mobx-react-lite";
-// import store from "../../store/store";
+import store from "../../store/store";
 import { Page } from "@/components/Page.tsx";
 
 // import tonSvg from "./ton.svg";
@@ -25,10 +25,6 @@ import {
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
 import MotionSensorComponent from "@/components/Sensors/MotionSensorComponent";
 
-// import { useEffect } from 'react';
-// import SockJS from 'sockjs-client';
-// import Stomp from 'stompjs';
-
 // import { useTelegramLocation } from "@/components/Sensors/useTelegramLocation";
 // import { LocationComponent } from "@/components/Sensors/useTelegramLocation";
 // import MotionSensorApp from "@/components/Sensors/MotionSensorApp";
@@ -47,77 +43,43 @@ import Websocket from "@/components/websocket";
 // import WebSocketComponent from "@/components/WebSocketComponent";
 
 export const IndexPage: FC = observer(() => {
-  // const [messages, setMessages] = useState<any>([]);
-  // const [input, setInput] = useState('');
-  // const [isConnected, setIsConnected] = useState(false);
-
   // const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
   // console.log(initDataRaw);
-  // console.log(messages, input, isConnected)
-  // console.log(initDataState);
+  console.log(initDataState?.user);
+  store.setUser(initDataState?.user);
   // const tg = window.Telegram.WebApp;
   // console.log(tg, 'tg!')
   // console.log(import.meta.env.VITE_API_URL)
-
-  // const handleSend = () => {
-
-  //   sendMessage('/', {
-  //     "messageType" : "USER_REQUEST",
-  //     "user": {
-  //       "id" : 111111,
-  //       "firstName" : "Name",
-  //       "lastName" : "nfjfjfj",
-  //       "username" :  "name",
-  //       "languageCode": "ru"
-  //     }
-  //   });
-  //   setInput('');
-
-  // };
-
-  // useEffect(() => {
-  //   // Подключаемся при монтировании компонента
-  //   connect(
-  //     (client) => {
-  //       setIsConnected(true);
-  //       // Подписываемся на получение сообщений
-  //       subscribe('/', (message: any) => {
-  //         setMessages((prev: any) => [...prev, message]);
-  //       });
-  //     },
-  //     (error: any) => {
-  //       console.error('Connection error:', error);
-  //       setIsConnected(false);
-  //     }
-  //   );
-  //   // handleSend()
-
-  //   // Отключаемся при размонтировании
-  //   return () => {
-  //     disconnect();
-  //     setIsConnected(false);
-  //   };
-  // }, []);
 
   return (
     <Page back={false}>
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
         <div className="relative bg-[#1A1A1A] w-full sm:max-w-[360px] h-[100vh] md:h-[830px]">
-          <div className="p-4">
+          <div className="z-10 sticky top-0 p-4 bg-[#1A1A1A]">
             <Header ava={initDataState?.user?.photo_url} />
+          </div>
+          <div className="flex-1 overflow-y-auto p-4 bg-[#1A1A1A]">
             <Slipper />
             <GiftCards />
             <ProgressBar />
-            <div className="absolute w-full -bottom-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#1A1A1A] h-1/6">
-              <BtnStart />
+            {/* <div className="space-y-4">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="bg-[#1A1A1A] p-3 text-white">
+                  Item {i + 1}
+                </div>
+              ))}
+            </div> */}
+          </div>
+          <div className="z-10 w-full sticky bottom-0 bg-[#1A1A1A] h-[140px] pt-2">
+            <BtnStart />
+            <div className="flex justify-center">
               <Footer />
             </div>
           </div>
         </div>
       </div>
-      {/* <MotionSensorApp/> */}
-      {/* <WebSocketComponent /> */}
+
       <Websocket />
       <MotionSensorComponent />
       {/* <LocationComponent /> */}
