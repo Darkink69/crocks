@@ -5,8 +5,6 @@ import store from "../store/store";
 interface User {
   id: number;
   firstName: string;
-  lastName: string;
-  username: string;
   languageCode: string;
 }
 
@@ -31,7 +29,6 @@ export const WebSocketComponent = observer(() => {
 
     ws.onmessage = (event) => {
       setReceivedMessages((prev) => [...prev, event.data]);
-      console.log(receivedMessages, "received!");
     };
 
     ws.onclose = () => {
@@ -54,11 +51,9 @@ export const WebSocketComponent = observer(() => {
     const message: WebSocketMessage = {
       messageType: "USER_REQUEST",
       user: {
-        id: store.user?.id || 1,
+        id: store.user?.id || 0,
         firstName: store.user?.first_name || "firstName",
-        lastName: store.user?.last_name || "lastName",
-        username: store.user?.user_name || "username",
-        languageCode: store.user?.languageCode || "ru",
+        languageCode: store.user?.language_code || "ru",
       },
     };
 
@@ -71,6 +66,10 @@ export const WebSocketComponent = observer(() => {
       console.log("WebSocket not ready yet");
     }
   };
+
+  useEffect(() => {
+    console.log(receivedMessages, "received!");
+  }, [receivedMessages]);
 
   return (
     <></>

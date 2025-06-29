@@ -43,9 +43,9 @@ import Websocket from "@/components/websocket";
 // import WebSocketComponent from "@/components/WebSocketComponent";
 
 export const IndexPage: FC = observer(() => {
-  // const initDataRaw = useSignal(_initDataRaw);
+  const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
-  // console.log(initDataRaw);
+  console.log(initDataRaw);
   console.log(initDataState?.user);
   store.setUser(initDataState?.user);
   // const tg = window.Telegram.WebApp;

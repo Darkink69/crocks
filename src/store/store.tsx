@@ -19,7 +19,6 @@ class Store {
 
   setUser(user: any) {
     this.user = user;
-    console.log(user);
   }
 }
 
