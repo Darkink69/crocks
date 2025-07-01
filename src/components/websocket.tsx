@@ -26,6 +26,7 @@ export const WebSocketComponent = observer(() => {
 
   useEffect(() => {
     const ws = new WebSocket(import.meta.env.VITE_API_URL + "/ws");
+    // const ws = new WebSocket(import.meta.env.VITE_API_URL);
 
     ws.onopen = () => {
       console.log("Connected to WebSocket server");
@@ -63,22 +64,28 @@ export const WebSocketComponent = observer(() => {
     ws.send(
       JSON.stringify({
         ...message,
-        endpoint: "/ws/user", // Добавляем поле для маршрутизации на сервере
+        endpoint: "/ws/user",
       })
     );
   };
 
   const sendStepsUpdate = (ws: WebSocket) => {
-    const message: StepsUpdateMessage = {
-      messageType: "STEPS_UPDATE",
+    const message: any = {
       chatId: store.user?.id,
-      result: true,
       steps: store.steps,
     };
+
+    // const message: StepsUpdateMessage = {
+    //   messageType: "STEPS_UPDATE",
+    //   chatId: store.user?.id,
+    //   result: true,
+    //   steps: store.steps,
+    // };
+
     ws.send(
       JSON.stringify({
         ...message,
-        endpoint: "/ws/steps", // Маршрутизация на сервере
+        endpoint: "/ws/steps",
       })
     );
   };
