@@ -14,11 +14,15 @@ interface WebSocketMessage {
 }
 
 interface StepsUpdateMessage {
-  messageType: string;
   chatId: number;
-  result: boolean;
   steps: number;
 }
+// interface StepsUpdateMessage {
+//   messageType: string;
+//   chatId: number;
+//   result: boolean;
+//   steps: number;
+// }
 
 export const WebSocketComponent = observer(() => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -70,7 +74,7 @@ export const WebSocketComponent = observer(() => {
   };
 
   const sendStepsUpdate = (ws: WebSocket) => {
-    const message: any = {
+    const message: StepsUpdateMessage = {
       chatId: store.user?.id,
       steps: store.steps,
     };
