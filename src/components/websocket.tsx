@@ -19,7 +19,9 @@ export const WebSocketComponent = observer(() => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket("wss://oleg181219-stepbycrocs-c321.twc1.net/ws");
+    console.log(import.meta.env.VITE_API_URL);
+    const ws = new WebSocket(import.meta.env.VITE_API_URL + "/ws");
+    // const ws = new WebSocket("wss://oleg181219-stepbycrocs-c321.twc1.net/ws");
     // const ws = new WebSocket("wss://echo.websocket.org");
 
     ws.onopen = () => {

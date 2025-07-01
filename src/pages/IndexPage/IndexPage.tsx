@@ -50,14 +50,15 @@ export const IndexPage: FC = observer(() => {
   store.setUser(initDataState?.user);
   // const tg = window.Telegram.WebApp;
   // console.log(tg, 'tg!')
-  // console.log(import.meta.env.VITE_API_URL)
 
   return (
     <Page back={false}>
       <div className="bg-gray-800 min-h-screen flex items-center justify-center">
         <div className="relative bg-[#1A1A1A] w-full sm:max-w-[360px] h-[100vh] md:h-[830px]">
           <div className="z-10 sticky top-0 p-4 bg-[#1A1A1A]">
+            {/* <Link to="/ton-connect"> */}
             <Header ava={initDataState?.user?.photo_url} />
+            {/* </Link> */}
           </div>
           <div className="flex-1 overflow-y-auto p-4 bg-[#1A1A1A]">
             <Slipper />
@@ -82,6 +83,16 @@ export const IndexPage: FC = observer(() => {
 
       <Websocket />
       <MotionSensorComponent />
+      {/* <Link to="/ton-connect">
+        <Cell
+          // before={
+          //   <Image src={tonSvg} style={{ backgroundColor: "#007AFF" }} />
+          // }
+          subtitle="Connect your TON wallet"
+        >
+          TON Connect
+        </Cell>
+      </Link> */}
       {/* <LocationComponent /> */}
 
       {/* <Link to="/init-data">

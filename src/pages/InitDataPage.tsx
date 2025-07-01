@@ -20,9 +20,6 @@ function getUserRows(user: User): DisplayDataRow[] {
 export const InitDataPage: FC = () => {
   const initDataRaw = useSignal(_initDataRaw);
   const initDataState = useSignal(_initDataState);
-  
-  console.log(initDataRaw, "!!!!!!!!!");
-  console.log(initDataState, "!!!!!!!!!");
 
   const initDataRows = useMemo<DisplayDataRow[] | undefined>(() => {
     if (!initDataState || !initDataRaw) {
