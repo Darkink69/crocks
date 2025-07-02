@@ -111,14 +111,15 @@ const MotionSensorComponent = observer(() => {
         "crocks",
         JSON.stringify({ steps: store.steps, data: 0 })
       );
-
-      return () => {
-        window.removeEventListener(
-          "devicemotion",
-          handleDeviceMotion as EventListener
-        );
-        // window.location.reload();
-      };
+      if (isPermissionGranted) {
+        window.location.reload();
+      }
+      // return () => {
+      //   window.removeEventListener(
+      //     "devicemotion",
+      //     handleDeviceMotion as EventListener
+      //   );
+      // };
     }
   }, [store.start]);
 
