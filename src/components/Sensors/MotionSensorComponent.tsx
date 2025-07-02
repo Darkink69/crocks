@@ -117,6 +117,7 @@ const MotionSensorComponent = observer(() => {
           "devicemotion",
           handleDeviceMotion as EventListener
         );
+        // window.location.reload();
       };
     }
   }, [store.start]);

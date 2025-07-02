@@ -45,7 +45,7 @@ const Header = observer(({ ava }: any) => {
               className="w-5 h-5"
             />
             <span className="text-white text-xs font-maven-pro font-medium pr-2">
-              578.15
+              {store.coins}
             </span>
           </div>
           <div className="flex items-center space-x-1">

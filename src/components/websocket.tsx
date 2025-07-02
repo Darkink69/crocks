@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import store from "../store/store";
 
@@ -8,29 +8,28 @@ interface User {
   languageCode: string;
 }
 
+interface Steps {
+  id: number;
+  steps: number;
+}
+
 interface WebSocketMessage {
-  messageType: string;
-  user: User;
+  endpoint: string;
+  payload: User;
 }
 
 interface StepsUpdateMessage {
-  chatId: number;
-  steps: number;
+  endpoint: string;
+  payload: Steps;
 }
-// interface StepsUpdateMessage {
-//   messageType: string;
-//   chatId: number;
-//   result: boolean;
-//   steps: number;
-// }
 
 export const WebSocketComponent = observer(() => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const intervalRef = useRef<any>(null);
 
   useEffect(() => {
     const ws = new WebSocket(import.meta.env.VITE_API_URL + "/ws");
-    // const ws = new WebSocket(import.meta.env.VITE_API_URL);
 
     ws.onopen = () => {
       console.log("Connected to WebSocket server");
@@ -39,154 +38,103 @@ export const WebSocketComponent = observer(() => {
 
     ws.onmessage = (event) => {
       const response = JSON.parse(event.data);
+      store.setSteps(response.steps);
+      console.log(response.coins, "response.coins!!");
+      if (response.coins !== undefined) {
+        store.setCoins(response.coins);
+        console.log(response.coins, "response.coins!!");
+      }
+
       console.log("Received:", response);
 
-      if (!isInitialized && response.success) {
+      if (!isInitialized && response.result) {
         setIsInitialized(true);
-        sendStepsUpdate(ws);
+        startStepsUpdateInterval(ws);
       }
     };
 
-    ws.onclose = () => console.log("Disconnected");
+    ws.onclose = () => {
+      console.log("Disconnected");
+      stopStepsUpdateInterval();
+    };
+
     ws.onerror = (error) => console.error("WebSocket error:", error);
 
     setSocket(ws);
     console.log(socket);
 
-    return () => ws.close();
+    return () => {
+      ws.close();
+      stopStepsUpdateInterval();
+    };
   }, []);
+
+  // Запуск интервала для отправки шагов
+  const startStepsUpdateInterval = (ws: WebSocket) => {
+    stopStepsUpdateInterval(); // Останавливаем предыдущий интервал, если был
+    const timeInterval = Number(import.meta.env.VITE_TIME);
+    intervalRef.current = setInterval(() => {
+      console.log(store.start, "start!!");
+      // console.log(isInitialized, "isInitialized!!");
+
+      // if (isInitialized && store.start) {
+      if (store.start) {
+        sendStepsUpdate(ws);
+      }
+    }, timeInterval); // Каждые N секунд
+  };
+
+  // Остановка интервала
+  const stopStepsUpdateInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
 
   const sendUserRequest = (ws: WebSocket) => {
     const message: WebSocketMessage = {
-      messageType: "USER_REQUEST",
-      user: {
+      endpoint: "user/info",
+      payload: {
         id: store.user?.id || 0,
         firstName: store.user?.first_name || "firstName",
         languageCode: store.user?.language_code || "ru",
       },
     };
-    ws.send(
-      JSON.stringify({
-        ...message,
-        endpoint: "/ws/user",
-      })
-    );
+
+    ws.send(JSON.stringify(message));
   };
 
   const sendStepsUpdate = (ws: WebSocket) => {
+    if (!store.start) {
+      console.log("Steps update skipped - store.start is false");
+      return;
+    }
+
     const message: StepsUpdateMessage = {
-      chatId: store.user?.id,
-      steps: store.steps,
+      endpoint: "steps",
+      payload: {
+        id: store.user?.id || 0,
+        steps: store.steps || 0,
+      },
     };
 
-    // const message: StepsUpdateMessage = {
-    //   messageType: "STEPS_UPDATE",
-    //   chatId: store.user?.id,
-    //   result: true,
-    //   steps: store.steps,
-    // };
-
-    ws.send(
-      JSON.stringify({
-        ...message,
-        endpoint: "/ws/steps",
-      })
-    );
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(message));
+      console.log("Steps update sent:", message);
+    } else {
+      console.log("Cannot send steps update - WebSocket not ready");
+    }
   };
+
+  // Останавливаем интервал при изменении store.start на false
+  useEffect(() => {
+    if (!store.start) {
+      stopStepsUpdateInterval();
+    }
+  }, [store.start]);
 
   return null;
 });
 
 export default WebSocketComponent;
-
-// import { useState, useEffect } from "react";
-// import { observer } from "mobx-react-lite";
-// import store from "../store/store";
-
-// interface User {
-//   id: number;
-//   firstName: string;
-//   languageCode: string;
-// }
-
-// interface WebSocketMessage {
-//   messageType: string;
-//   user: User;
-// }
-
-// export const WebSocketComponent = observer(() => {
-//   const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
-//   const [socket, setSocket] = useState<WebSocket | null>(null);
-
-//   useEffect(() => {
-//     console.log(import.meta.env.VITE_API_URL);
-//     const ws = new WebSocket(import.meta.env.VITE_API_URL + "/ws/user");
-//     // const ws = new WebSocket("wss://oleg181219-stepbycrocs-c321.twc1.net/ws");
-//     // const ws = new WebSocket("wss://echo.websocket.org");
-
-//     ws.onopen = () => {
-//       console.log("Connected to WebSocket server");
-//       sendInitialMessage(ws);
-//     };
-
-//     ws.onmessage = (event) => {
-//       setReceivedMessages((prev) => [...prev, event.data]);
-//     };
-
-//     ws.onclose = () => {
-//       console.log("Disconnected from WebSocket server");
-//     };
-
-//     ws.onerror = (error) => {
-//       console.error("WebSocket error:", error);
-//     };
-
-//     setSocket(ws);
-//     console.log(socket);
-
-//     return () => {
-//       ws.close();
-//     };
-//   }, []);
-
-//   const sendInitialMessage = (ws: WebSocket) => {
-//     const message: WebSocketMessage = {
-//       messageType: "USER_REQUEST",
-//       user: {
-//         id: store.user?.id || 0,
-//         firstName: store.user?.first_name || "firstName",
-//         languageCode: store.user?.language_code || "ru",
-//       },
-//     };
-
-//     console.log(message);
-
-//     if (ws.readyState === WebSocket.OPEN) {
-//       ws.send(JSON.stringify(message));
-//       console.log(message, "send!");
-//     } else {
-//       console.log("WebSocket not ready yet");
-//     }
-//   };
-
-//   useEffect(() => {
-//     console.log(receivedMessages, "received!");
-//   }, [receivedMessages]);
-
-//   return (
-//     <></>
-//     // <div className="text-black">
-//     //   <h2>WebSocket Connection</h2>
-//     //   <div>
-//     //     <h3>Received Messages:</h3>
-//     //     <ul>
-//     //       {receivedMessages.map((msg, index) => (
-//     //         <li key={index}>{msg}</li>
-//     //       ))}
-//     //     </ul>
-//     //   </div>
-//     // </div>
-//   );
-// });
-
-// export default WebSocketComponent;

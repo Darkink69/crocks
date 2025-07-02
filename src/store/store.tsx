@@ -1,7 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
 class Store {
-  steps = JSON.parse(localStorage.getItem("crocks") || "{}").steps || 0;
+  // steps = JSON.parse(localStorage.getItem("crocks") || "{}").steps || 0;
+  steps = 0;
+  coins = 999;
   user: any;
   start = false;
 
@@ -11,6 +13,10 @@ class Store {
 
   setSteps(steps: number) {
     this.steps = steps;
+  }
+
+  setCoins(coins: number) {
+    this.coins = coins;
   }
 
   setStart(start: boolean) {
