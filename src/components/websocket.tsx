@@ -75,9 +75,7 @@ export const WebSocketComponent = observer(() => {
     const timeInterval = Number(import.meta.env.VITE_TIME);
     intervalRef.current = setInterval(() => {
       console.log(store.start, "start!!");
-      // console.log(isInitialized, "isInitialized!!");
 
-      // if (isInitialized && store.start) {
       if (store.start) {
         sendStepsUpdate(ws);
       }
