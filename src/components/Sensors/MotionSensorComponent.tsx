@@ -41,7 +41,6 @@ const MotionSensorComponent = observer(() => {
       // Для браузеров, которые не требуют явного разрешения
       setIsPermissionGranted(true);
       startMotionTracking();
-      // store.setStart(true);
     }
   };
 
@@ -95,9 +94,6 @@ const MotionSensorComponent = observer(() => {
         "crocks",
         JSON.stringify({ steps: store.steps, data: 0 })
       );
-      // if (isPermissionGranted) {
-      //   window.location.reload();
-      // }
       console.log(motionData);
       console.log(isPermissionGranted);
       console.log(error);
@@ -109,19 +105,6 @@ const MotionSensorComponent = observer(() => {
       );
     };
   }, [store.start]);
-
-  // Очистка при размонтировании
-  // useEffect(() => {
-  //   console.log(motionData);
-  //   console.log(isPermissionGranted);
-  //   console.log(error);
-  //   return () => {
-  //     window.removeEventListener(
-  //       "devicemotion",
-  //       handleDeviceMotion as EventListener
-  //     );
-  //   };
-  // }, []);
 
   return (
     <></>
