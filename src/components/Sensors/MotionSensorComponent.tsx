@@ -82,22 +82,6 @@ const MotionSensorComponent = observer(() => {
     }
   };
 
-  // const setHeaderSteps = () => {
-  //   // let current = store.steps;
-
-  //   let timerId = setInterval(function () {
-  //     store.setSteps(stepCount);
-  //     if (store.start === false) {
-  //       localStorage.setItem(
-  //         "crocks",
-  //         JSON.stringify({ steps: store.steps, data: 0 })
-  //       );
-  //       clearInterval(timerId);
-  //     }
-  //     // current++;
-  //   }, 2000);
-  // };
-
   useEffect(() => {
     store.setSteps(stepCount);
   }, [stepCount]);
@@ -111,30 +95,33 @@ const MotionSensorComponent = observer(() => {
         "crocks",
         JSON.stringify({ steps: store.steps, data: 0 })
       );
-      if (isPermissionGranted) {
-        window.location.reload();
-      }
-      // return () => {
-      //   window.removeEventListener(
-      //     "devicemotion",
-      //     handleDeviceMotion as EventListener
-      //   );
-      // };
+      // if (isPermissionGranted) {
+      //   window.location.reload();
+      // }
+      console.log(motionData);
+      console.log(isPermissionGranted);
+      console.log(error);
     }
-  }, [store.start]);
-
-  // Очистка при размонтировании
-  useEffect(() => {
-    console.log(motionData);
-    console.log(isPermissionGranted);
-    console.log(error);
     return () => {
       window.removeEventListener(
         "devicemotion",
         handleDeviceMotion as EventListener
       );
     };
-  }, []);
+  }, [store.start]);
+
+  // Очистка при размонтировании
+  // useEffect(() => {
+  //   console.log(motionData);
+  //   console.log(isPermissionGranted);
+  //   console.log(error);
+  //   return () => {
+  //     window.removeEventListener(
+  //       "devicemotion",
+  //       handleDeviceMotion as EventListener
+  //     );
+  //   };
+  // }, []);
 
   return (
     <></>
