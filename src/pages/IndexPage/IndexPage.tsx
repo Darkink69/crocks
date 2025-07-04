@@ -15,7 +15,7 @@ import ProgressBar from "@/components/MainPage/ProgressBar";
 import Slipper from "@/components/MainPage/Slipper";
 import BtnStart from "@/components/MainPage/BtnStart";
 
-import { type FC } from "react";
+import { useEffect, type FC } from "react";
 import {
   initDataRaw as _initDataRaw,
   initDataState as _initDataState,
@@ -50,6 +50,16 @@ export const IndexPage: FC = observer(() => {
   store.setUser(initDataState?.user);
   // const tg = window.Telegram.WebApp;
   // console.log(tg, 'tg!')
+  useEffect(() => {
+    fetch(
+      `https://toncenter.com/api/v2/getAddressBalance?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB`
+    )
+      .then((response) => response.json())
+      .then((data) => store.setTons(data.result))
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <Page back={false}>
@@ -63,7 +73,9 @@ export const IndexPage: FC = observer(() => {
           <div className="flex-1 overflow-y-auto p-4 bg-[#1A1A1A]">
             <Slipper />
             <GiftCards />
+
             <ProgressBar />
+
             {/* <div className="space-y-4">
               {Array.from({ length: 10 }).map((_, i) => (
                 <div key={i} className="bg-[#1A1A1A] p-3 text-white">

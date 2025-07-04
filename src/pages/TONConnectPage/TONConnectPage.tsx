@@ -3,7 +3,6 @@ import {
   TonConnectButton,
   useTonWallet,
   useTonAddress,
-  useTonConnectModal,
 } from "@tonconnect/ui-react";
 import {
   Avatar,
@@ -28,10 +27,19 @@ const [, e] = bem("ton-connect-page");
 export const TONConnectPage: FC = () => {
   const wallet = useTonWallet();
   const adrss = useTonAddress();
-  const modal = useTonConnectModal();
   console.log(wallet, "wallet!!!");
   console.log(adrss, "adrss!!!");
-  console.log(modal, "modal!!!");
+
+  const getAllTokens = () => {
+    fetch(
+      `https://toncenter.com/api/v2/getAddressBalance?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   if (!wallet) {
     return (
@@ -111,6 +119,7 @@ export const TONConnectPage: FC = () => {
           ]}
         />
       </List>
+      <div onClick={() => getAllTokens()}>TON BALANCE</div>
     </Page>
   );
 };
