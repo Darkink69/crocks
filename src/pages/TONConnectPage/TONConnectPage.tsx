@@ -1,5 +1,10 @@
 import { openLink } from "@telegram-apps/sdk-react";
-import { TonConnectButton, useTonWallet } from "@tonconnect/ui-react";
+import {
+  TonConnectButton,
+  useTonWallet,
+  useTonAddress,
+  useTonConnectModal,
+} from "@tonconnect/ui-react";
 import {
   Avatar,
   Cell,
@@ -22,7 +27,11 @@ const [, e] = bem("ton-connect-page");
 
 export const TONConnectPage: FC = () => {
   const wallet = useTonWallet();
+  const adrss = useTonAddress();
+  const modal = useTonConnectModal();
   console.log(wallet, "wallet!!!");
+  console.log(adrss, "adrss!!!");
+  console.log(modal, "modal!!!");
 
   if (!wallet) {
     return (
