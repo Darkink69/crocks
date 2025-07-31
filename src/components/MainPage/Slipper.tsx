@@ -6,13 +6,13 @@ const Slipper = () => {
       <div className="relative">
         <div className="">
           <img
-            src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/bg.png"
+            src="https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/bg.png"
             alt="bg"
           />
         </div>
         <div className="absolute top-0 left-5">
           <img
-            src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/slipper.png"
+            src="https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/slipper.png"
             alt="slipper"
           />
         </div>

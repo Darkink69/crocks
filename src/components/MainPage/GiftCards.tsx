@@ -4,7 +4,7 @@ import GiftCard from "./GiftCard";
 const GiftCards = () => {
   const data = [
     {
-      img: "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/gift1.png",
+      img: "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/gift1.png",
       status: (
         <svg
           width="42"
@@ -26,12 +26,12 @@ const GiftCards = () => {
       time: "14:20:34",
     },
     {
-      img: "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/gift2.png",
+      img: "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/gift2.png",
       status: "",
       time: "",
     },
     {
-      img: "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/gift3.png",
+      img: "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/gift3.png",
       status: (
         <svg
           width="13"
@@ -49,12 +49,12 @@ const GiftCards = () => {
       time: "14:20:34",
     },
     {
-      img: "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/gift4.png",
+      img: "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/gift4.png",
       status: "",
       time: "",
     },
     {
-      img: "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/gift5.png",
+      img: "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/gift5.png",
       status: "",
       time: "",
     },

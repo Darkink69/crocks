@@ -13,7 +13,7 @@ const Header = observer(({ ava }: any) => {
             src={
               ava
                 ? ava
-                : "https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/ava.png"
+                : "https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/ava.png"
             }
             alt="Avatar"
             className="w-full h-full object-cover"
@@ -30,7 +30,7 @@ const Header = observer(({ ava }: any) => {
         <div className="flex flex-row">
           <div className="flex items-center space-x-1">
             <img
-              src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/image.png"
+              src="https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/image.png"
               alt=""
               className="w-5 h-5"
             />
@@ -40,7 +40,7 @@ const Header = observer(({ ava }: any) => {
           </div>
           <div className="flex items-center space-x-1">
             <img
-              src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/coin.png"
+              src="https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/coin.png"
               alt="Coins"
               className="w-5 h-5"
             />
@@ -50,7 +50,7 @@ const Header = observer(({ ava }: any) => {
           </div>
           <div className="flex items-center space-x-1">
             <img
-              src="https://9qhr1l4qpuouftdm.public.blob.vercel-storage.com/assets/map.png"
+              src="https://s3.twcstorage.ru/c6bae09a-a5938890-9b68-453c-9c54-76c439a70d3e/Crocks/map.png"
               alt="Energy"
               className="w-5 h-5"
             />
