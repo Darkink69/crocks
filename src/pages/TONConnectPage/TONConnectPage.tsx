@@ -3,7 +3,8 @@ import {
   TonConnectButton,
   useTonWallet,
   useTonAddress,
-  // SendTransactionRequest,
+  SendTransactionRequest,
+  useTonConnectUI,
 } from "@tonconnect/ui-react";
 
 import {
@@ -32,10 +33,14 @@ export const TONConnectPage: FC = () => {
   console.log(wallet, "wallet!!!");
   console.log(adrss, "adrss!!!");
 
+  const [tonConnectUI] = useTonConnectUI();
+
   const myWallet = "UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB";
 
   // get transaction
   // https://toncenter.com/api/v2/getTransactions?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB&limit=10&to_lt=0&archival=true
+  // UQDoj1UzJasYurg5oLsfA69pmVG7ATWTxyxawgfGFvLffbX8
+  // 976634512
 
   const getAllTokens = () => {
     fetch(`https://toncenter.com/api/v2/getAddressBalance?address=${myWallet}`)
@@ -46,15 +51,15 @@ export const TONConnectPage: FC = () => {
       });
   };
 
-  // const transaction: SendTransactionRequest = {
-  //   validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes
-  //   messages: [
-  //     {
-  //       address: "0QD-SuoCHsCL2pIZfE8IAKsjc0aDpDUQAoo-ALHl2mje04A-", // message destination in user-friendly format
-  //       amount: "1000000", // Toncoin in nanotons
-  //     },
-  //   ],
-  // };
+  const transaction: SendTransactionRequest = {
+    validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes
+    messages: [
+      {
+        address: "UQDoj1UzJasYurg5oLsfA69pmVG7ATWTxyxawgfGFvLffbX8", // message destination in user-friendly format
+        amount: "100000", // Toncoin in nanotons
+      },
+    ],
+  };
 
   if (!wallet) {
     return (
@@ -83,6 +88,27 @@ export const TONConnectPage: FC = () => {
 
   return (
     <Page>
+      <div onClick={() => getAllTokens()}>TON BALANCE</div>
+      <div>
+        <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
+          Send transaction
+        </button>
+      </div>
+      {/* wallet && (
+      <div>
+        <span>Connected wallet address: {wallet.account.address}</span>
+        <span>Device: {wallet.device.appName}</span>
+        <span>Connected via: {wallet.provider}</span>
+        {wallet.connectItems?.tonProof?.proof && (
+          <span>Ton proof: {wallet.connectItems.tonProof.proof}</span>
+        )}
+
+        <div>Connected wallet info:</div>
+        <div>
+          {wallet.name} <img src={wallet.imageUrl} />
+        </div>
+      </div>
+      ) */}
       <List>
         {"imageUrl" in wallet && (
           <>
@@ -134,7 +160,6 @@ export const TONConnectPage: FC = () => {
           ]}
         />
       </List>
-      <div onClick={() => getAllTokens()}>TON BALANCE</div>
     </Page>
   );
 };
