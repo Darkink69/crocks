@@ -3,7 +3,9 @@ import {
   TonConnectButton,
   useTonWallet,
   useTonAddress,
+  // SendTransactionRequest,
 } from "@tonconnect/ui-react";
+
 import {
   Avatar,
   Cell,
@@ -30,16 +32,29 @@ export const TONConnectPage: FC = () => {
   console.log(wallet, "wallet!!!");
   console.log(adrss, "adrss!!!");
 
+  const myWallet = "UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB";
+
+  // get transaction
+  // https://toncenter.com/api/v2/getTransactions?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB&limit=10&to_lt=0&archival=true
+
   const getAllTokens = () => {
-    fetch(
-      `https://toncenter.com/api/v2/getAddressBalance?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB`
-    )
+    fetch(`https://toncenter.com/api/v2/getAddressBalance?address=${myWallet}`)
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => {
         console.error(error);
       });
   };
+
+  // const transaction: SendTransactionRequest = {
+  //   validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes
+  //   messages: [
+  //     {
+  //       address: "0QD-SuoCHsCL2pIZfE8IAKsjc0aDpDUQAoo-ALHl2mje04A-", // message destination in user-friendly format
+  //       amount: "1000000", // Toncoin in nanotons
+  //     },
+  //   ],
+  // };
 
   if (!wallet) {
     return (
