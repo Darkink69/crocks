@@ -41,6 +41,12 @@ export const TONConnectPage: FC = () => {
   // https://toncenter.com/api/v2/getTransactions?address=UQDncYGSo8oA2jQVZwolIiTdylIE4QAeNtrpkmwW9sYjX0bB&limit=10&to_lt=0&archival=true
   // UQDoj1UzJasYurg5oLsfA69pmVG7ATWTxyxawgfGFvLffbX8
   // 976634512
+  // 967827147
+  // 967827059
+
+  // 744075069
+  // 739742183
+  // 736567298
 
   const getAllTokens = () => {
     fetch(`https://toncenter.com/api/v2/getAddressBalance?address=${myWallet}`)
@@ -56,7 +62,7 @@ export const TONConnectPage: FC = () => {
     messages: [
       {
         address: "UQDoj1UzJasYurg5oLsfA69pmVG7ATWTxyxawgfGFvLffbX8", // message destination in user-friendly format
-        amount: "100000", // Toncoin in nanotons
+        amount: "1000000", // Toncoin in nanotons
       },
     ],
   };
