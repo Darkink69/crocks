@@ -71,15 +71,6 @@ export const IndexPage: FC = observer(() => {
             {/* </Link> */}
           </div>
 
-            <div >
-    <div>
-      <picture>
-        <source type="application/x-tgsticker" srcSet="https://cdn4.telesco.pe/file/sticker.tgs?token=RgHQ8jDP351yYmQs2meIgvIRxo32ribjBcwzUseHOlMQHXeeW2Aqi2An-XPGLl3D-1b6nPluCEwAUesiip4qdYQZbrGIfzxDDgxSkDbEQ0z7K14HJb0BJW-LpwFBEJ_eGqz7Lla0zV4eZpr2bZzS6gJhcetryov4WU8shjN2nJhC5twxczvLBSvX9zUdZ04VhWB6C-ioD4dds3SZl1qHIGrDGI6HV63KGkGgoLbrTFWEDHkKkDHc7uvyYGc9UGlwKRx5FDy4WcGmrhzVbKFuGyFV3Nt65Ql4qRH1PW3O6YHb1_vjjOUlr5VhKXfSLgV7DGkkUjM-ff-y2qmtD1RPzA"></source>
-        <source type="image/svg+xml" srcSet="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iLTMwMCUiIHgyPSItMjAwJSIgeTE9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9Ii0xMCUiIHN0b3Atb3BhY2l0eT0iLjEiLz48c3RvcCBvZmZzZXQ9IjMwJSIgc3RvcC1vcGFjaXR5PSIuMDciLz48c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1vcGFjaXR5PSIuMDciLz48c3RvcCBvZmZzZXQ9IjExMCUiIHN0b3Atb3BhY2l0eT0iLjEiLz48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJ4MSIgZnJvbT0iLTMwMCUiIHRvPSIxMjAwJSIgZHVyPSIzcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJ4MiIgZnJvbT0iLTIwMCUiIHRvPSIxMzAwJSIgZHVyPSIzcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMjYwLDQ4MWMtMjIsMS0xMjMsMi0xMzQtMjAtNi0xMywzNi0xOSw0MS0yMCwxNy0zLTEtNy05LTEyLTMtMy02LTUtOS03LTYxLTQ2LTczLTEyOS00OS0xOTcsNy0yMCwyMC0zOCwyNy01OCwxLTItMzAtNi0yNi0xNyw0LTEwLDQ0LTE2LDU0LTIyLDktNiwxNy0xOSwyNS0yNywzNS0zMyw5MS02NywxNDEtNDksMTA3LDQwLDEyMSwyMTQsODQsMzA1LTE2LDM4LTQzLDU4LTc0LDgzLTUsNCw1MCw1LDQzLDIxLTksMTgtOTQsMjAtMTE0LDIweiIvPjwvc3ZnPg=="></source>
-        
-      <canvas width="324" height="324"></canvas></picture>
-    </div>
-  </div>
           <div className="flex-1 overflow-y-auto p-4 bg-[#1A1A1A]">
             <Slipper />
             <GiftCards />
